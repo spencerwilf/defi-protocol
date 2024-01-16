@@ -34,13 +34,16 @@ contract DSCEngine {
         _;
     }
 
+    /* Functions */
+    constructor() {}
+
     function depositCollateralAndMintDsc() external {}
 
     /**
      * @param tokenCollateralAddress The address of the token to deposit as collateral
      * @param amountCollateral The amount of collateral to deposit
      */ 
-    function depositCollateral(address tokenCollateralAddress, uint amountCollateral) external {
+    function depositCollateral(address tokenCollateralAddress, uint amountCollateral) external moreThanZero(amountCollateral) {
 
     }
 
