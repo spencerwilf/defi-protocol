@@ -15,10 +15,17 @@ pragma solidity 0.8.21;
  * 2.) No fees
  * 3.) Only backed by wETH and wBTC
  * 
+ * @notice DSC should be perpetually overcollateralized. At no point should the value of all collateral be less the value of all DSC.
+ * 
  * @notice Tnis contract is the core of the DSC system. It handles all the logic for minting and redeeming DSC, as well as withdrawing collateral.
  * 
  * @notice This contrct is loosely based on the MakerDAO DSS (DAI) system.
  */
 contract DSCEngine {
 
+    function depositCollateralAndMintDsc() external {}
+
+    function redeemCollateralForDSC() external {}
+
+    function burnDSC() external {}
 }
