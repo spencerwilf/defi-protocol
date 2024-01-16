@@ -28,4 +28,8 @@ contract DSCEngine {
     function redeemCollateralForDSC() external {}
 
     function burnDSC() external {}
+
+    function liquidate() external {}
+
+    
 }
