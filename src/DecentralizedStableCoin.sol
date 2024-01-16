@@ -14,5 +14,7 @@ import {ERC20, ERC20Burnable} from "@openzeppelin/contracts/token/ERC20/extensio
  */
 contract DecentralizedStableCoin is ERC20Burnable {
 
-    
+    constructor() ERC20("DecentraizedStableCoin", "DSC") {
+        
+    }
 }
