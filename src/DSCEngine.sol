@@ -31,5 +31,7 @@ contract DSCEngine {
 
     function liquidate() external {}
 
-    
+    function getHealthFactor() external view {
+        
+    }
 }
