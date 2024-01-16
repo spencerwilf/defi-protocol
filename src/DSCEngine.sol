@@ -27,7 +27,7 @@ contract DSCEngine {
     error DSCEngine__MustBeMoreThanZero();
 
     /* State variables */
-    mapping(address => bool) private s_tokenToAllowed;
+    mapping(address token => address priceFeed) private s_priceFeeds;
 
     /* Modifiers */
     modifier moreThanZero(uint amount) {
