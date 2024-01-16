@@ -25,13 +25,19 @@ contract DSCEngine {
 
     function depositCollateralAndMintDsc() external {}
 
+    function depositCollateral() external {}
+
+    function redeemCollateral() external {}
+
     function redeemCollateralForDSC() external {}
+
+    function mintDsc() external {}
 
     function burnDSC() external {}
 
     function liquidate() external {}
 
     function getHealthFactor() external view {
-        
+
     }
 }
