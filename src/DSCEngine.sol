@@ -93,7 +93,13 @@ contract DSCEngine is ReentrancyGuard {
 
     function redeemCollateralForDSC() external {}
 
-    function mintDsc() external {}
+    /**
+     * @notice follows CEI (checks, effects, interactions) pattern
+     * @param amountDscToMint The amount of the stablecoin to mint
+     */
+    function mintDsc(uint amountDscToMint) external moreThanZero(amountDscToMint) nonReentrant {
+
+    }
 
     function burnDSC() external {}
 
