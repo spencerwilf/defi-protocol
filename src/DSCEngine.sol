@@ -26,6 +26,9 @@ contract DSCEngine {
     /* Errors */
     error DSCEngine__MustBeMoreThanZero();
 
+    /* State variables */
+    mapping(address => bool) private s_tokenToAllowed;
+
     /* Modifiers */
     modifier moreThanZero(uint amount) {
         if (amount == 0) {
@@ -34,9 +37,14 @@ contract DSCEngine {
         _;
     }
 
+    modifier isAllowedToken(address tokenAddress) {
+
+    }
+
     /* Functions */
     constructor() {}
 
+    /* External Functions */
     function depositCollateralAndMintDsc() external {}
 
     /**
