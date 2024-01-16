@@ -71,6 +71,7 @@ contract DSCEngine is ReentrancyGuard {
     /**
      * @param tokenCollateralAddress The address of the token to deposit as collateral
      * @param amountCollateral The amount of collateral to deposit
+     * @notice follows CEI (checks, effects, interactions) pattern
      */
     function depositCollateral(address tokenCollateralAddress, uint256 amountCollateral)
         external
