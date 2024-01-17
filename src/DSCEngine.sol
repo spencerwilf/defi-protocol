@@ -40,6 +40,7 @@ contract DSCEngine is ReentrancyGuard {
     mapping(address user => uint amountDscMinted) private s_DSCMinted;
     address[] private s_collateralTokens;
     uint private constant ADDITIONAL_FEED_PRECISION = 1e10;
+    uint private constant PRECISION = 1e18;
 
     /* Events */
     event CollateralDeposited(address indexed user, address indexed token, uint indexed amount);
@@ -119,7 +120,7 @@ contract DSCEngine is ReentrancyGuard {
 
     function _getAccountInformation(address user) private view returns(uint totalDscMinted, uint collateralValueInUsd) {
         totalDscMinted = s_DSCMinted[user];
-        collateralValueInUsd = getCollateralValue(user);
+        collateralValueInUsd = getAccountCollateralValue(user);
     } 
 
     /**
@@ -136,16 +137,17 @@ contract DSCEngine is ReentrancyGuard {
 
     /* Public and External View Functions */
 
-    function getAccountCollateralValue(address user) public view returns(uint) {
+    function getAccountCollateralValue(address user) public view returns(uint totalCollateralValueInUsd) {
         for (uint i = 0; i < s_collateralTokens.length; i++) {
             address token = s_collateralTokens[i];
             uint amount = s_collateralDeposited[user][token];
-            totalCollateralValueInUsd += 
+            totalCollateralValueInUsd += getUsdValue(token, amount);
         }
     }
 
     function getUsdValue(address token, uint amount) public view returns(uint) {
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[token])
+        AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[token]);
         (,int price,,,) = priceFeed.latestRoundData();
+        return ((uint(price) * ADDITIONAL_FEED_PRECISION) * amount) / PRECISION;
     }
 }
