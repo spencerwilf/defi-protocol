@@ -11,19 +11,19 @@ contract HelperConfig is Script {
         address wbtcUsdPriceFeed;
         address weth;
         address wbtc;
-        uint deployerKey;
+        uint256 deployerKey;
     }
 
     uint8 public constant DECIMALS = 8;
-    int public constant ETH_USD_PRICE = 2000e8;
-    int public constant BTC_USD_PRICE = 1000e8;
+    int256 public constant ETH_USD_PRICE = 2000e8;
+    int256 public constant BTC_USD_PRICE = 1000e8;
     NetworkConfig public activeNetworkConfig;
 
     constructor() {}
 
-    function getSepoliaEthConfig() public view returns(NetworkConfig memory) {
+    function getSepoliaEthConfig() public view returns (NetworkConfig memory) {
         return NetworkConfig({
-            wethUsdPriceFeed:0x694AA1769357215DE4FAC081bf1f309aDC325306,
+            wethUsdPriceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306,
             wbtcUsdPriceFeed: 0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43,
             weth: 0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9,
             wbtc: 0x92f3B59a79bFf5dc60c0d59eA13a44D082B2bdFC,
@@ -31,12 +31,19 @@ contract HelperConfig is Script {
         });
     }
 
-    function getOrCreateAnvilEthConfig() public returns(NetworkConfig memory) {
+    function getOrCreateAnvilEthConfig() public returns (NetworkConfig memory) {
         if (activeNetworkConfig.wethUsdPriceFeed != address(0)) {
             return activeNetworkConfig;
         }
 
         vm.startBroadcast();
-        MockV3Aggregator ethUsdPriceFeed = new MockV3Aggregator()
+        MockV3Aggregator ethUsdPriceFeed = new MockV3Aggregator(DECIMALS, ETH_USD_PRICE);
+
+        ERC20Mock wethMock = new ERC20Mock();
+
+        MockV3Aggregator btcUsdPriceFeed = new MockV3Aggregator(DECIMALS, BTC_USD_PRICE);
+
+        ERC20Mock btcMock = new ERC20Mock();
+        vm.stopBroadcast();
     }
 }
