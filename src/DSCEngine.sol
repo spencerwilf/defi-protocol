@@ -34,13 +34,18 @@ contract DSCEngine is ReentrancyGuard {
     error DSCEngine__TransferFromFailed();
 
     /* State variables */
+    uint private constant ADDITIONAL_FEED_PRECISION = 1e10;
+    uint private constant PRECISION = 1e18;
+    uint private constant LIQUIDATION_THRESHOLD = 50;
+    uint private constant LIQUIDATION_PRECISION = 100;
+
     mapping(address token => address priceFeed) private s_priceFeeds;
     mapping(address user => mapping(address token => uint256 amount)) private s_collateralDeposited;
     DecentralizedStableCoin private immutable i_dsc;
     mapping(address user => uint amountDscMinted) private s_DSCMinted;
+
     address[] private s_collateralTokens;
-    uint private constant ADDITIONAL_FEED_PRECISION = 1e10;
-    uint private constant PRECISION = 1e18;
+    
 
     /* Events */
     event CollateralDeposited(address indexed user, address indexed token, uint indexed amount);
@@ -129,6 +134,9 @@ contract DSCEngine is ReentrancyGuard {
      */
     function _healthFactor(address user) private view returns(uint) {
         (uint totalDscMinted, uint collateralValueInUsd) = _getAccountInformation(user);
+        uint collateralAdjustedForThreshold = (collateralValueInUsd * LIQUIDATION_THRESHOLD) / LIQUIDATION_PRECISION;
+
+        return (collateralAdjustedForThreshold * PRECISION) / totalDscMinted;
     }
 
     function revertIfHealthFactorIsBroken(address user) internal view {
