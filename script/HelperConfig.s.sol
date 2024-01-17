@@ -11,4 +11,8 @@ contract HelperConfig is Script {
         address wbtc;
         uint deployerKey;
     }
+
+    NetworkConfig public activeNetworkConfig;
+
+    constructor() {}
 }
