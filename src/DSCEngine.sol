@@ -33,6 +33,7 @@ contract DSCEngine is ReentrancyGuard {
     error DSCEngine__InvalidCollateral();
     error DSCEngine__TransferFromFailed();
     error DSCEngine__BreaksHealthFactor();
+    error DSCEngine__MintFailed();
 
     /* State variables */
     uint private constant ADDITIONAL_FEED_PRECISION = 1e10;
@@ -114,7 +115,10 @@ contract DSCEngine is ReentrancyGuard {
     function mintDsc(uint amountDscToMint) external moreThanZero(amountDscToMint) nonReentrant {
         s_DSCMinted[msg.sender] += amountDscToMint;
         revertIfHealthFactorIsBroken(msg.sender);
-
+        bool minted = i_dsc.mint(msg.sender, amountDscToMint);
+        if (!minted) {
+            revert DSCEngine__MintFailed();
+        }
     }
 
     function burnDSC() external {}
