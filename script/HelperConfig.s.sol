@@ -7,5 +7,8 @@ contract HelperConfig is Script {
     struct NetworkConfig {
         address wethUsdPriceFeed;
         address wbtcUsdPriceFeed;
+        address weth;
+        address wbtc;
+        uint deployerKey;
     }
 }
