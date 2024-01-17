@@ -37,6 +37,7 @@ contract DSCEngine is ReentrancyGuard {
     mapping(address user => mapping(address token => uint256 amount)) private s_collateralDeposited;
     DecentralizedStableCoin private immutable i_dsc;
     mapping(address user => uint amountDscMinted) private s_DSCMinted;
+    address[] private s_collateralTokens;
 
     /* Events */
     event CollateralDeposited(address indexed user, address indexed token, uint indexed amount);
@@ -133,6 +134,6 @@ contract DSCEngine is ReentrancyGuard {
     /* Public and External View Functions */
 
     function getAccountCollateralValue(address user) public view returns(uint) {
-        
+
     }
 }
