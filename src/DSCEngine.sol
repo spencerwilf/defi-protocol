@@ -4,6 +4,7 @@ pragma solidity 0.8.21;
 import {DecentralizedStableCoin} from "./DecentralizedStableCoin.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 /**
  * @title DSCEngine
@@ -38,6 +39,7 @@ contract DSCEngine is ReentrancyGuard {
     DecentralizedStableCoin private immutable i_dsc;
     mapping(address user => uint amountDscMinted) private s_DSCMinted;
     address[] private s_collateralTokens;
+    uint private constant ADDITIONAL_FEED_PRECISION = 1e10;
 
     /* Events */
     event CollateralDeposited(address indexed user, address indexed token, uint indexed amount);
@@ -143,6 +145,7 @@ contract DSCEngine is ReentrancyGuard {
     }
 
     function getUsdValue(address token, uint amount) public view returns(uint) {
-        
+        AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[token])
+        (,int price,,,) = priceFeed.latestRoundData();
     }
 }
