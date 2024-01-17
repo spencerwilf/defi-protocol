@@ -3,6 +3,7 @@ pragma solidity 0.8.21;
 
 import {ERC20, ERC20Burnable} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {DSCEngine} from "./DSCEngine.sol";
 
 /**
  * @title Decentralized Stable Coin
