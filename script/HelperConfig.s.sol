@@ -14,6 +14,9 @@ contract HelperConfig is Script {
         uint deployerKey;
     }
 
+    uint8 public constant DECIMALS = 8;
+    int public constant ETH_USD_PRICE = 2000e8;
+    int public constant BTC_USD_PRICE = 1000e8;
     NetworkConfig public activeNetworkConfig;
 
     constructor() {}
@@ -34,5 +37,6 @@ contract HelperConfig is Script {
         }
 
         vm.startBroadcast();
+        MockV3Aggregator ethUsdPriceFeed = new MockV3Aggregator()
     }
 }
