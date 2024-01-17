@@ -21,7 +21,13 @@ contract HelperConfig is Script {
     int256 public constant BTC_USD_PRICE = 1000e8;
     NetworkConfig public activeNetworkConfig;
 
-    constructor() {}
+    constructor() {
+        if (block.chainid == 11155111) {
+            activeNetworkConfig = getSepoliaEthConfig();
+        } else {
+            activeNetworkConfig = getOrCreateAnvilEthConfig();
+        }
+    }
 
     function getSepoliaEthConfig() public view returns (NetworkConfig memory) {
         return NetworkConfig({
