@@ -22,7 +22,11 @@ contract HelperConfig is Script {
             wbtcUsdPriceFeed: 0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43,
             weth: 0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9,
             wbtc: 0x92f3B59a79bFf5dc60c0d59eA13a44D082B2bdFC,
-            deployerKey: vm.envUint("PRIVATE_KEY");
-        })
+            deployerKey: vm.envUint("PRIVATE_KEY")
+        });
+    }
+
+    function getOrCreateAnvilEthConfig() public returns(NetworkConfig memory) {
+
     }
 }
