@@ -3,6 +3,7 @@ pragma solidity 0.8.21;
 
 import {Script} from "forge-std/Script.sol";
 import {MockV3Aggregator} from "../test/mocks/Mockv3Aggregator.sol";
+import {ERC20Mock} from "@openzeppelin/contracts/mocks/token/ERC20Mock.sol";
 
 contract HelperConfig is Script {
     struct NetworkConfig {
